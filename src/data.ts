@@ -1,7 +1,7 @@
 const pokemonList = [
   {
     id: 25,
-    name: 'Pikachu',
+    name: '0',
     type: 'Electric',
     averageWeight: {
       value: '6.0',
