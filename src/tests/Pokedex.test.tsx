@@ -96,20 +96,20 @@ describe('Testando o componente Pokedex.tsx', () => {
     expect(screen.getByRole('img', { name: /pikachu sprite/i })).toBeInTheDocument();
   });
 
-  // test('Ao clicar no botão "All", a Pokédex mostra todos os Pokémon.', () => {
-  //   const fireBtn = screen.getByRole('button', { name: 'Fire' });
-  //   fireEvent.click(fireBtn); // Clicou no Fire
+  test('Ao clicar no botão "All", a Pokédex mostra todos os Pokémon.', () => {
+    const fireBtn = screen.getByRole('button', { name: 'Fire' });
+    fireEvent.click(fireBtn); // Clicou no Fire
 
-  //   const allBtn = screen.getByRole('button', { name: 'All' });
-  //   fireEvent.click(allBtn);
+    const allBtn = screen.getByRole('button', { name: 'All' });
+    fireEvent.click(allBtn);
 
-  //   const pokemonNames = screen.getAllByTestId(pokemonName);
-  //   expect(pokemonNames.length).toBeGreaterThan(0);
-  // });
+    const pokemonNames = screen.getAllByTestId(pokemonName);
+    expect(pokemonNames.length).toBeGreaterThan(0);
+  });
 
-  // test('Ao carregar a página, o filtro selecionado é "All".', () => {
-  //   const allButton = screen.getByText('All');
-  //   // const allButton = screen.getAllByTestId('');
-  //   expect(allButton).toBeInTheDocument();
-  // });
+  test('Ao carregar a página, o filtro selecionado é "All".', () => {
+    const allButton = screen.getByText('All');
+    // const allButton = screen.getAllByTestId('');
+    expect(allButton).toBeInTheDocument();
+  });
 });
