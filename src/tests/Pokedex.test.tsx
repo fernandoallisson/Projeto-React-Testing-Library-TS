@@ -91,7 +91,11 @@ describe('Testando o componente Pokedex.tsx', () => {
 
   test('A Pokédex contém um botão para resetar o filtro com o texto "All".', () => { // testado
     const resetButton = screen.getByRole('button', { name: 'All' });
+    const bugBtn = screen.getByRole('button', { name: 'Bug' });
     expect(resetButton).toBeInTheDocument();
+
+    fireEvent.click(bugBtn);
+    fireEvent.click(resetButton);
 
     expect(screen.getByRole('img', { name: /pikachu sprite/i })).toBeInTheDocument();
   });

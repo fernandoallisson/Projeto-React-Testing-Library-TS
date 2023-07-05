@@ -12,6 +12,9 @@ describe('testando o componente PokemonDetails.tsx', () => {
 
     const charmanderDescription = screen.getByText('The flame on its tail shows the strength of its life force. If it is weak, the flame also burns weakly.');
     expect(charmanderDescription).toBeInTheDocument();
+
+    const titleSum = screen.getByRole('heading', { name: /Summary/i });
+    expect(titleSum).toBeInTheDocument();
   });
   test('Teste se existe na página uma seção com os mapas contendo as localizações do Pokémon:', () => {
     renderWithRouter(<App />, { route: rotaPokemonCharmander });
@@ -25,7 +28,7 @@ describe('testando o componente PokemonDetails.tsx', () => {
     const imageOfLocation = screen.getAllByAltText(/Charmander location/i);
     expect(imageOfLocation[1]).toHaveAttribute('src', 'https://archives.bulbagarden.net/media/upload/4/4a/Kanto_Route_3_Map.png');
   });
-  test.only('Teste se o usuário pode favoritar um Pokémon por meio da página de detalhes:', () => {
+  test('Teste se o usuário pode favoritar um Pokémon por meio da página de detalhes:', () => {
     renderWithRouter(<App />, { route: rotaPokemonCharmander });
 
     const check = screen.getByRole('checkbox', { name: 'Pokémon favoritado?' });
