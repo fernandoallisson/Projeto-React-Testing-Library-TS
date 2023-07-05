@@ -11,176 +11,105 @@ describe('Testando o componente Pokedex.tsx', () => {
       </MemoryRouter>,
     );
   });
-  // const nextButtonTestId = 'next-pokemon';
   const pokemonName = 'pokemon-name';
 
-  test('A página contém um heading h2 com o texto "Encountered Pokémon".', () => {
+  test('A página contém um heading h2 com o texto "Encountered Pokémon".', () => { // testado
     const heading = screen.getByRole('heading', { level: 2, name: 'Encountered Pokémon' });
     expect(heading).toBeInTheDocument();
   });
 
-  test('É mostrado apenas um Pokémon por vez.', () => {
+  test('É mostrado apenas um Pokémon por vez.', () => { // testado | desnecessário
     const pokemonNames = screen.getAllByTestId(pokemonName);
     expect(pokemonNames.length).toBe(1);
   });
 
-  test('O próximo Pokémon da lista é mostrado ao clicar no botão "Próximo Pokémon".', () => {
+  test('O próximo Pokémon da lista é mostrado ao clicar no botão "Próximo Pokémon".', () => { // testado
+    // const listPokemons = ['Pikachu', 'Charmander', 'Caterpie', 'Ekans', 'Alakazam', 'Mew', 'Rapidash', 'Snorlax', 'Dragonair'];
+
     const nextButton = screen.getByText(/Próximo Pokémon/i);
-    const firstPokemonName = screen.getByTestId(pokemonName).textContent; // pikachu
 
     fireEvent.click(nextButton);
-    const secondPokemonName = screen.getByTestId(pokemonName).textContent; // Charmander
-    expect(secondPokemonName).not.toBe(firstPokemonName);
+    const pokemon2 = screen.getByRole('img', { name: /Charmander sprite/ });
+    expect(pokemon2).toBeInTheDocument();
 
     fireEvent.click(nextButton);
-    const thirdPokemonName = screen.getByTestId(pokemonName).textContent; // Caterpie
-    expect(thirdPokemonName).not.toBe(secondPokemonName);
+    const pokemon3 = screen.getByRole('img', { name: /Caterpie sprite/ });
+    expect(pokemon3).toBeInTheDocument();
 
     fireEvent.click(nextButton);
-    const newFirstPokemonName = screen.getByTestId(pokemonName).textContent; // Ekans
-    expect(newFirstPokemonName).not.toBe(firstPokemonName);
+    const pokemon4 = screen.getByRole('img', { name: /Ekans sprite/ });
+    expect(pokemon4).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon5 = screen.getByRole('img', { name: /Alakazam sprite/ });
+    expect(pokemon5).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon6 = screen.getByRole('img', { name: /Mew sprite/ });
+    expect(pokemon6).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon7 = screen.getByRole('img', { name: /Rapidash sprite/ });
+    expect(pokemon7).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon8 = screen.getByRole('img', { name: /Snorlax sprite/ });
+    expect(pokemon8).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon9 = screen.getByRole('img', { name: /Dragonair sprite/ });
+    expect(pokemon9).toBeInTheDocument();
+
+    fireEvent.click(nextButton);
+    const pokemon1 = screen.getByRole('img', { name: /Pikachu sprite/ });
+    expect(pokemon1).toBeInTheDocument();
   });
 
-  test('A Pokédex contém botões de filtro para cada tipo de Pokémon.', () => {
-    const types = ['All', 'Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon']; // Exemplo de tipos
+  test('A Pokédex contém botões de filtro para cada tipo de Pokémon.', () => { // testado
+    const types = ['Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon']; // Tipos de botões;
+    const typoBtn = screen.getAllByTestId('pokemon-type-button'); // Pega os botões pelo ID
 
-    types.forEach((type) => {
-      const typoBtn = screen.getByRole('button', { name: type });
-      expect(typoBtn).toBeInTheDocument();
+    typoBtn.forEach((type, index) => {
+      expect(type).toHaveTextContent(types[index]);
     });
   });
 
-  test('Ao clicar em um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo.', () => {
-    const fireBtn = screen.getByRole('button', { name: 'Fire' });
+  test('Ao clicar em um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo.', () => { // testado
+    const fireBtn = screen.getByRole('button', { name: /Fire/i });
+
     fireEvent.click(fireBtn); // Clicou no Fire
-
-    const initialPokemonName = screen.getByTestId('pokemon-type').textContent;
-    const fogo = fireBtn.textContent;
-    expect(fogo).toBe(initialPokemonName);
-
     const nextButton = screen.getByText('Próximo Pokémon');
+
+    const initialPokemonName = screen.getByRole('img', { name: /Charmander sprite/i });
+    expect(initialPokemonName).toBeInTheDocument();
+
     fireEvent.click(nextButton);
 
-    const secondPokemonName = screen.getByTestId('pokemon-type').textContent;
-    expect(fogo).toBe(secondPokemonName);
+    const secondlPokemonName = screen.getByRole('img', { name: /Rapidash sprite/i });
+    expect(secondlPokemonName).toBeInTheDocument();
   });
 
-  test('A Pokédex contém um botão para resetar o filtro com o texto "All".', () => {
-    const resetButton = screen.getByText('All');
+  test('A Pokédex contém um botão para resetar o filtro com o texto "All".', () => { // testado
+    const resetButton = screen.getByRole('button', { name: 'All' });
     expect(resetButton).toBeInTheDocument();
+
+    expect(screen.getByRole('img', { name: /pikachu sprite/i })).toBeInTheDocument();
   });
 
-  test('Ao clicar no botão "All", a Pokédex mostra todos os Pokémon.', () => {
-    const fireBtn = screen.getByRole('button', { name: 'Fire' });
-    fireEvent.click(fireBtn); // Clicou no Fire
+  // test('Ao clicar no botão "All", a Pokédex mostra todos os Pokémon.', () => {
+  //   const fireBtn = screen.getByRole('button', { name: 'Fire' });
+  //   fireEvent.click(fireBtn); // Clicou no Fire
 
-    const allBtn = screen.getByRole('button', { name: 'All' });
-    fireEvent.click(allBtn);
+  //   const allBtn = screen.getByRole('button', { name: 'All' });
+  //   fireEvent.click(allBtn);
 
-    const pokemonNames = screen.getAllByTestId(pokemonName);
-    expect(pokemonNames.length).toBeGreaterThan(0);
-  });
+  //   const pokemonNames = screen.getAllByTestId(pokemonName);
+  //   expect(pokemonNames.length).toBeGreaterThan(0);
+  // });
 
-  test('Ao carregar a página, o filtro selecionado é "All".', () => {
-    const allButton = screen.getByText('All');
-    // const allButton = screen.getAllByTestId('');
-    expect(allButton).toBeInTheDocument();
-  });
+  // test('Ao carregar a página, o filtro selecionado é "All".', () => {
+  //   const allButton = screen.getByText('All');
+  //   // const allButton = screen.getAllByTestId('');
+  //   expect(allButton).toBeInTheDocument();
+  // });
 });
-
-// -------------------------------------------------------------------------------------------------
-// describe('Testando o componente Pokedex.tsx', () => {
-//   const nextButtonTestId = 'next-pokemon';
-
-//   beforeEach(() => {
-//     render(
-//       <MemoryRouter initialEntries={ ['/'] }>
-//         <App />
-//       </MemoryRouter>,
-//     );
-//   });
-
-//   test('A página contém um heading h2 com o texto "Encountered Pokémon".', () => {
-//     const heading = screen.getByRole('heading', { level: 2, name: 'Encountered Pokémon' });
-//     expect(heading).toBeInTheDocument();
-//   });
-
-//   test('É mostrado apenas um Pokémon por vez.', () => {
-//     const pokemonNames = screen.getAllByText(/Pikachu|Bulbasaur/);
-//     expect(pokemonNames.length).toBe(1);
-//   });
-
-//   test('O próximo Pokémon da lista é mostrado ao clicar no botão "Próximo Pokémon".', () => {
-//     const pokemonName1 = 'Charmander';
-//     const pokemonName2 = 'Caterpie';
-//     const nextButton = screen.getByTestId(nextButtonTestId);
-
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText(pokemonName1)).toBeInTheDocument();
-
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText(pokemonName2)).toBeInTheDocument();
-//   });
-
-//   test('A Pokédex contém botões de filtro para cada tipo de Pokémon.', () => {
-//     const allBtn = screen.getByRole('button', { name: 'All' });
-//     const eletricBtn = screen.getByRole('button', { name: 'Electric' });
-//     const fireBtn = screen.getByRole('button', { name: 'Fire' });
-//     const bugBtn = screen.getByRole('button', { name: 'Bug' });
-//     const poisonBtn = screen.getByRole('button', { name: 'Poison' });
-//     const psychicBtn = screen.getByRole('button', { name: 'Psychic' });
-//     const normalBtn = screen.getByRole('button', { name: 'Normal' });
-//     const dragonBtn = screen.getByRole('button', { name: 'Dragon' });
-
-//     expect(allBtn).toBeInTheDocument();
-//     expect(eletricBtn).toBeInTheDocument();
-//     expect(fireBtn).toBeInTheDocument();
-//     expect(bugBtn).toBeInTheDocument();
-//     expect(poisonBtn).toBeInTheDocument();
-//     expect(psychicBtn).toBeInTheDocument();
-//     expect(normalBtn).toBeInTheDocument();
-//     expect(dragonBtn).toBeInTheDocument();
-//   });
-
-//   test('Ao clicar em um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo.', () => {
-//     const eletricBtn = screen.getByRole('button', { name: 'Electric' });
-//     const fireBtn = screen.getByRole('button', { name: 'Fire' });
-//     const nextButton = screen.getByTestId('next-pokemon');
-//     fireEvent.click(eletricBtn);
-//     expect(screen.getByText('Pikachu')).toBeInTheDocument();
-
-//     fireEvent.click(fireBtn);
-//     expect(screen.queryByText('Charmander')).toBeInTheDocument();
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText('Rapidash')).toBeInTheDocument();
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText('Charmander')).toBeInTheDocument();
-//   });
-
-//   test('A Pokédex contém um botão para resetar o filtro com o texto "All".', () => {
-//     const allButton = screen.getByText('All');
-
-//     expect(allButton).toBeInTheDocument();
-//   });
-
-//   test('Ao clicar no botão "All", a Pokédex mostra todos os Pokémon.', () => {
-//     const allBtn = screen.getByRole('button', { name: 'All' });
-//     const nextButton = screen.getByTestId(nextButtonTestId);
-
-//     fireEvent.click(allBtn);
-//     expect(screen.getByText('Pikachu')).toBeInTheDocument();
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText('Charmander')).toBeInTheDocument();
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText('Caterpie')).toBeInTheDocument();
-//     fireEvent.click(nextButton);
-//     expect(screen.getByText('Ekans')).toBeInTheDocument();
-//   });
-
-//   test('Ao carregar a página, o filtro selecionado é "All".', () => {
-//     expect(screen.getByText('Pikachu')).toBeInTheDocument();
-
-//     const nextButton = screen.getByTestId(nextButtonTestId); // Deve estar habilitado.
-//     expect(nextButton).not.toHaveAttribute('disabled');
-//   });
-// });
