@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import FavoritePokemon from '../pages/FavoritePokemon';
+import App from '../App';
 
 describe('Testando o componente FvoritePokemon.tsx', () => {
   test('É exibida na tela a mensagem No favorite pokemon found caso a pessoa não tenha Pokémon favorito.', () => {
@@ -8,6 +10,11 @@ describe('Testando o componente FvoritePokemon.tsx', () => {
     expect(message).toBeInTheDocument();
   });
   // test('Apenas são exibidos os Pokémon favoritados, caso seja favoritado algum.', () => {
+  //   render(
+  //     <MemoryRouter initialEntries={ ['/favorites'] }>
+  //       <App />
+  //     </MemoryRouter>,
+  //   );
   //   const pokemonList = [
   //     {
   //       id: 143,
